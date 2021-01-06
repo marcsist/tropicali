@@ -1,20 +1,19 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
- 
-sass.compiler = require('node-sass');
+const GulpClient = require("gulp");
+const { watch, series, src, dest } = require("gulp");
+const sass = require("gulp-sass");
 
-gulp.task("sass", function() {
-      // we want to run "sass sass css/app.scss app.css --watch"
-      return gulp.src('css/app.scss')
-        .pipe(sass())
-        .pipe(gulp.dest('.'))
-})
+sass.complier = require(`node-sass`);
 
+function runSass() {
+  // place code for your default task here
+  // we want to run "css css/app.scss app.css --watch"
+  return src("css/app.scss")
+  .pipe(sass())
+  .pipe(dest("."));
+}
 
-function defaultTask(cb) {
+function watchSass() {
+  watch('css/app.scss', runSass)
+}
 
-
-    cb();
-  }
-  
-  exports.default = defaultTask
+exports.default = series(runSass, watchSass);

@@ -21,12 +21,13 @@ function runSass() {
     })
   )
   .pipe(sourcemaps.write())
-  .pipe(dest("."));
+  .pipe(dest("."))
+  .pipe(browserSync.stream());
 }
 
 
 function watchSass() {
-  
+
   browserSync.init({
     server: {
       baseDir: "./"

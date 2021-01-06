@@ -4,6 +4,9 @@ const sass = require("gulp-sass");
 const cleanCSS = require("gulp-clean-css");
 const sourcemaps = require("gulp-sourcemaps");
 
+const browserSync = require("browser-sync").create();
+
+
 sass.complier = require(`node-sass`);
 
 function runSass() {
@@ -21,7 +24,15 @@ function runSass() {
   .pipe(dest("."));
 }
 
+
 function watchSass() {
+  
+  browserSync.init({
+    server: {
+      baseDir: "./"
+    }
+  })
+
   watch('css/app.scss', runSass)
 }
 

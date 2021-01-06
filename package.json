@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/marcsist/tropicali#readme",
   "devDependencies": {
+    "browser-sync": "^2.26.13",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-sass": "^4.1.0",

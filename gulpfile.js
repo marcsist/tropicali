@@ -30,6 +30,16 @@ function html() {
     .pipe(dest("dist"))
 }
 
+function fonts() {
+  return src("src/fonts/*")
+    .pipe(dest("dist/fonts"))
+}
+
+function images() {
+  return src("src/img/*")
+    .pipe(dest("dist/img"))
+}
+
 function watchSass() {
 
   browserSync.init({
@@ -40,7 +50,9 @@ function watchSass() {
 
   watch('src/index.html', html).on("change", browserSync.reload)
   watch('src/css/app.scss', runSass)
-
+  watch('src/fonts/*', fonts)
+  watch('src/img/*', images)
+  
 }
 
-exports.default = series(html, runSass, watchSass);
+exports.default = series(html, runSass, fonts, images, watchSass);

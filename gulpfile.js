@@ -7,6 +7,9 @@ const sourcemaps = require("gulp-sourcemaps");
 const browserSync = require("browser-sync").create();
 
 const imagemin = require("gulp-imagemin");
+const ghpages = require("gh-pages");
+
+const { getHashes } = require("crypto");
 
 sass.complier = require(`node-sass`);
 
@@ -55,6 +58,12 @@ function watchSass() {
   watch('src/fonts/*', fonts)
   watch('src/img/*', images)
   
+}
+
+exports.deploy = function (cb) {
+  ghpages.publish('dist') 
+
+  cb();
 }
 
 exports.default = series(html, runSass, fonts, images, watchSass);

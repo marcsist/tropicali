@@ -12,7 +12,7 @@ sass.complier = require(`node-sass`);
 function runSass() {
   // place code for your default task here
   // we want to run "css css/app.scss app.css --watch"
-  return src("css/app.scss")
+  return src("src/css/app.scss")
   .pipe(sourcemaps.init())
   .pipe(sass())
   .pipe(
@@ -21,20 +21,26 @@ function runSass() {
     })
   )
   .pipe(sourcemaps.write())
-  .pipe(dest("."))
+  .pipe(dest("dist"))
   .pipe(browserSync.stream());
 }
 
+function html() {
+  return src("src/index.html")
+    .pipe(dest("dist"))
+}
 
 function watchSass() {
 
   browserSync.init({
     server: {
-      baseDir: "./"
+      baseDir: "dist"
     }
   })
 
-  watch('css/app.scss', runSass)
+  watch('src/index.html', html).on("change", browserSync.reload)
+  watch('src/css/app.scss', runSass)
+
 }
 
-exports.default = series(runSass, watchSass);
+exports.default = series(html, runSass, watchSass);

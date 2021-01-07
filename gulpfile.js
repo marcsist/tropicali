@@ -6,6 +6,7 @@ const sourcemaps = require("gulp-sourcemaps");
 
 const browserSync = require("browser-sync").create();
 
+const imagemin = require("gulp-imagemin");
 
 sass.complier = require(`node-sass`);
 
@@ -37,6 +38,7 @@ function fonts() {
 
 function images() {
   return src("src/img/*")
+    .pipe(imagemin())
     .pipe(dest("dist/img"))
 }
 

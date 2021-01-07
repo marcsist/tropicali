@@ -27,7 +27,7 @@ function runSass() {
 }
 
 function html() {
-  return src("src/index.html")
+  return src("src/*.html")
     .pipe(dest("dist"))
 }
 
@@ -50,7 +50,7 @@ function watchSass() {
     }
   })
 
-  watch('src/index.html', html).on("change", browserSync.reload)
+  watch('src/*.html', html).on("change", browserSync.reload)
   watch('src/css/app.scss', runSass)
   watch('src/fonts/*', fonts)
   watch('src/img/*', images)

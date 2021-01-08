@@ -1,9 +1,12 @@
 const GulpClient = require("gulp");
 const { watch, series, src, dest } = require("gulp");
-const sass = require("gulp-sass");
+
+// css
 const cleanCSS = require("gulp-clean-css");
+
 const sourcemaps = require("gulp-sourcemaps");
 
+// browser refresh
 const browserSync = require("browser-sync").create();
 
 const imagemin = require("gulp-imagemin");
@@ -11,14 +14,12 @@ const ghpages = require("gh-pages");
 
 const { getHashes } = require("crypto");
 
-sass.complier = require(`node-sass`);
 
-function runSass() {
+function "css"() {
   // place code for your default task here
   // we want to run "css css/app.scss app.css --watch"
-  return src("src/css/app.scss")
+  return src("src/css/app.css")
   .pipe(sourcemaps.init())
-  .pipe(sass())
   .pipe(
     cleanCSS({
       compatibility: 'ie8'
@@ -54,12 +55,13 @@ function watchSass() {
   })
 
   watch('src/*.html', html).on("change", browserSync.reload)
-  watch('src/css/app.scss', runSass)
+  watch('src/css/app.css', "css")
   watch('src/fonts/*', fonts)
   watch('src/img/*', images)
   
 }
 
+<<<<<<< Updated upstream
 exports.deploy = function (cb) {
   ghpages.publish('dist') 
 
@@ -67,3 +69,6 @@ exports.deploy = function (cb) {
 }
 
 exports.default = series(html, runSass, fonts, images, watchSass);
+=======
+exports.default = series(html, "css", fonts, images, watchSass);
+>>>>>>> Stashed changes

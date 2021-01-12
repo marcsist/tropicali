@@ -1,4 +1,15 @@
+@custom-media --mq-medium (max-width: 800px);
+
+
+:root {
+    --primary-color:orange;
+    --font-size:1.2em;
+}
+
+
 body {
     font-family: "Jost";
     src: url(fonts/jost-book.woff2), url(fonts/jost-book.woff);
+    background-color: var(--primary-color);
+
 }

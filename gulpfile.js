@@ -31,7 +31,11 @@ function css() {
   .pipe(
     postcss([
       require("autoprefixer"),
-      require("postcss-preset-env")
+      require("postcss-preset-env")({
+        stage: 1,
+        browsers: ["IE 11", "last 2 versions"]
+
+      })
     ])
   )
   .pipe(concat("app.css"))

@@ -74,7 +74,7 @@ function watchSass() {
   })
 
   watch('src/*.html', html).on("change", browserSync.reload)
-  watch('src/css/app.css', css)
+  watch('src/css/*', css)
   watch('src/fonts/*', fonts)
   watch('src/img/*', images)
   

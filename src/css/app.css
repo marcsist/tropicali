@@ -1,5 +1,5 @@
 @custom-media --mq-medium (max-width: 800px);
-
+@custom-media --mq-small (max-width: 550px);
 
 :root {
     --primary-color:#f70201;
@@ -11,6 +11,7 @@
     --gap-spacing: 40px;
     --header-height: 80px;
     --hero-spacing: 240px;
+    --centered-width: 55%;
 }   
 
 
@@ -19,6 +20,15 @@
         --main-spacing: 40px;
         --gap-spacing: 32px;
         --hero-spacing: 120px;
+        --centered-width: 80%;
+    }
+}
+
+@media (--mq-small) {
+    :root {
+        --main-spacing: 32px;
+        --hero-spacing: 80px;
+
     }
 }
 
@@ -58,5 +68,53 @@ section.hero.menu {
     background-image: image-set(
         "img/green-wall.jpg" 1x, 
         "img/green-wall@2x.jpg" 2x);
+
+}
+
+section.hero h2 { 
+    margin-bottom: 12px;
+}
+
+section.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: var(--gap-spacing);
+    align-items: center;
+}
+
+section.grid p {
+    margin: 24px 0 24px 0;
+}
+
+.button {
+    display: inline-block;
+    color: var(--text-on-dark);
+    border: 1px solid var(--text-on-dark);
+    padding: 16px 30px 16px 30px;
+}
+
+.button-full {
+    background-color: var(--primary-color)
+}
+
+section.centered{
+    text-align: center;
+    width: var(--centered-width);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (--mq-small) {
+    section.grid {
+        grid-template-columns: 1fr;
+    }
+
+    header img {
+        width: 160px;
+    }
+
+    .button {
+        padding: 8px 16px 8px 16px;
+    }
 
 }

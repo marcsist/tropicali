@@ -1,24 +1,44 @@
 const GulpClient = require("gulp");
 const { watch, series, src, dest } = require("gulp");
-const sass = require("gulp-sass");
-const cleanCSS = require("gulp-clean-css");
-const sourcemaps = require("gulp-sourcemaps");
 
+// css
+const cleanCSS = require("gulp-clean-css");
+const postcss = require("gulp-postcss");
+const sourcemaps = require("gulp-sourcemaps");
+const concat = require("gulp-concat");
+
+// browser refresh
 const browserSync = require("browser-sync").create();
 
+// images
 const imagemin = require("gulp-imagemin");
+
+// GitHub pages
 const ghpages = require("gh-pages");
 
-const { getHashes } = require("crypto");
+//const { getHashes } = require("crypto");
 
-sass.complier = require(`node-sass`);
 
-function runSass() {
+function css() {
   // place code for your default task here
   // we want to run "css css/app.scss app.css --watch"
-  return src("src/css/app.scss")
+  return src([
+    "src/css/reset.css",
+    "src/css/typography.css",
+    "src/css/app.css"
+  ])
   .pipe(sourcemaps.init())
-  .pipe(sass())
+  .pipe(
+    postcss([
+      require("autoprefixer"),
+      require("postcss-preset-env")({
+        stage: 1,
+        browsers: ["IE 11", "last 2 versions"]
+
+      })
+    ])
+  )
+  .pipe(concat("app.css"))
   .pipe(
     cleanCSS({
       compatibility: 'ie8'
@@ -54,7 +74,7 @@ function watchSass() {
   })
 
   watch('src/*.html', html).on("change", browserSync.reload)
-  watch('src/css/app.scss', runSass)
+  watch('src/css/*', css)
   watch('src/fonts/*', fonts)
   watch('src/img/*', images)
   
@@ -66,4 +86,4 @@ exports.deploy = function (cb) {
   cb();
 }
 
-exports.default = series(html, runSass, fonts, images, watchSass);
+exports.default = series(html, css, fonts, images, watchSass);
